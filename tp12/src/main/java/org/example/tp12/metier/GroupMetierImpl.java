@@ -37,6 +37,13 @@ public class GroupMetierImpl implements GroupMetier {
         GroupDto dto = new GroupDto();
         dto.setCodeGroupe(groupe.getCodeGroupe());
         dto.setNomGroupe(groupe.getNomGroupe());
+        if(groupe.getEmploye() != null){
+            dto.setEmployeIds(
+                    groupe.getEmploye().stream()
+                            .map(Employe::getCodeEmploye)
+                            .collect(Collectors.toList())
+            );
+        }
 
         return dto;
     }

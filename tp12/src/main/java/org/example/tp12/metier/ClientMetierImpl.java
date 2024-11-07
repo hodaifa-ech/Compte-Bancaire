@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +34,26 @@ public class ClientMetierImpl implements ClientMetier  {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+    @Override
+    public ClientDTo updateClient(Long codeClient, ClientDTo clientDTo) {
+        Optional<Client> existingClientOpt = clientRepository.findById(codeClient);
+        if (existingClientOpt.isPresent()) {
+            Client existingClient = existingClientOpt.get();
+            existingClient.setNomClient(clientDTo.getNomClient());
+            return this.mapToDTO(clientRepository.save(existingClient));
+        }
+        return null; // If client not found
+    }
 
+    @Override
+    public boolean deleteClient(Long codeClient) {
+        Optional<Client> existingClientOpt = clientRepository.findById(codeClient);
+        if (existingClientOpt.isPresent()) {
+            clientRepository.delete(existingClientOpt.get());
+            return true; // Client deleted successfully
+        }
+        return false; // If client not found
+    }
     private ClientDTo mapToDTO(Client client) {
         ClientDTo dto = new ClientDTo();
         dto.setCodeClient(client.getCodeClient());

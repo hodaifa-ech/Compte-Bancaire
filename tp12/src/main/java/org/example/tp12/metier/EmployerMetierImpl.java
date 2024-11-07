@@ -65,6 +65,15 @@ public class EmployerMetierImpl  implements  EmployerMetier{
     }
     private EmployeDto mapToDTO(Employe employe) {
         EmployeDto dto = new EmployeDto();
+        // Map each Groupe to its ID and set it as groupeIds in the DTO
+
+        if(employe.getGroupes() != null) {
+            dto.setGroupeIds(
+                    employe.getGroupes().stream()
+                            .map(Groupe::getCodeGroupe)
+                            .collect(Collectors.toList())
+            );
+        }
 
         dto.setCodeEmploye(employe.getCodeEmploye());
         dto.setNomEmploye(employe.getNomEmploye());

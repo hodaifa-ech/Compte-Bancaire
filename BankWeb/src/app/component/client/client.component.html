@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <!-- Table to list clients -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Client Code</th>
+        <th>Client Name</th>
+        <th>Actions</th> <!-- New column for actions -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{ client.codeClient }}</td>
+        <td>{{ client.nomClient }}</td>
+        <td>
+          <!-- Edit and Delete buttons -->
+          <button class="btn btn-warning btn-sm mr-2" (click)="openForm(client)">
+            <i class="fas fa-pencil-alt"></i> <!-- Pencil icon for edit -->
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteClient(client)">
+            <i class="fas fa-trash"></i> <!-- Trash icon for delete -->
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Button to open the add client form -->
+  <button class="btn btn-primary mt-3" (click)="openForm()">Add Client</button>
+
+  <!-- Add Client Form Popup -->
+  <div *ngIf="showForm" class="modal d-block fade-in" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ currentClient ? 'Update Client' : 'Create New Client' }}</h5>
+          <button type="button" class="btn-close" (click)="closeForm()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="nomClient" class="form-label">Client Name</label>
+              <input type="text" id="nomClient" class="form-control" formControlName="nomClient" />
+              <div *ngIf="clientForm.controls['nomClient'].invalid && clientForm.controls['nomClient'].touched" class="text-danger">
+                <div *ngIf="clientForm.controls['nomClient'].errors?.['required']">
+                  Client name is required
+                </div>
+                <div *ngIf="clientForm.controls['nomClient'].errors?.['pattern']">
+                  Client name should not contain symbols or numbers
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="clientForm.invalid">{{ currentClient ? 'Update' : 'Save' }}</button>
+            <button type="button" class="btn btn-secondary ml-2" (click)="closeForm()">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

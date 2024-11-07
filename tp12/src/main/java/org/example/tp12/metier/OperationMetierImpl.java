@@ -60,11 +60,13 @@ public class OperationMetierImpl implements OperationMetier {
         dto.setDateOperation(versement.getDateOperation());
         dto.setMontant(versement.getMontant());
         dto.setCompteId(versmentDto.getCompteId());
+        dto.setCompteSource(versmentDto.getCompteSource());
+        dto.setEmployeId(versmentDto.getEmployeId());
         return dto;
     }
     @Override
     public VersmentDto versement(VersmentDto versmentDto) {
-        Compte compteSource = compteRepository.findById(versmentDto.getEmployeId())
+        Compte compteSource = compteRepository.findById(versmentDto.getCompteId())
                 .orElseThrow(() -> new RuntimeException("Compte source not found"));
 
 
@@ -90,6 +92,7 @@ public class OperationMetierImpl implements OperationMetier {
         dto.setDateOperation(versement.getDateOperation());
         dto.setMontant(versement.getMontant());
         dto.setCompteId(versmentDto.getCompteId());
+        dto.setEmployeId(versmentDto.getEmployeId());
         return dto;
     }
     @Override
@@ -131,6 +134,8 @@ public class OperationMetierImpl implements OperationMetier {
         dto.setNumeroOperation(operation.getNumeroOperation());
         dto.setDateOperation(operation.getDateOperation());
         dto.setMontant(operation.getMontant());
+        dto.setEmployeId(operation.getEmploye().getCodeEmploye());
+
         dto.setCompteId(Long.parseLong(operation.getCompte().getCodeCompte()));
         return dto;
     }

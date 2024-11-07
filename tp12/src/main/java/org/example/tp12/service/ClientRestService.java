@@ -22,6 +22,25 @@ public class ClientRestService {
         return ResponseEntity.ok().body(clientDTo);
     }
 
+    // Update Client
+    @PutMapping("/{codeClient}")
+    public ResponseEntity<ClientDTo> updateClient(@PathVariable Long codeClient, @RequestBody ClientDTo clientDTo) {
+        ClientDTo updatedClient = clientMetier.updateClient(codeClient, clientDTo);
+        if (updatedClient == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedClient);
+    }
+
+    // Delete Client
+    @DeleteMapping("/{codeClient}")
+    public ResponseEntity<Void> deleteClient(@PathVariable Long codeClient) {
+        boolean isDeleted = clientMetier.deleteClient(codeClient);
+        if (!isDeleted) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
     @GetMapping
     public List<ClientDTo> listClient() {
         return clientMetier.listClient();

@@ -9,4 +9,6 @@ public interface ClientMetier {
 
     public ClientDTo saveClient(ClientDTo clientDTo);
     public List<ClientDTo> listClient();
+    public ClientDTo updateClient(Long codeClient, ClientDTo clientDTo);
+    public boolean deleteClient(Long codeClient);
 }

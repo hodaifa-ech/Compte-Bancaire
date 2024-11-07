@@ -1,0 +1,43 @@
+/* For modern, smooth animations */
+.modal.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Create the fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Improve spacing between buttons */
+  button {
+    margin-right: 10px; /* Margin between buttons */
+  }
+  
+  button:last-child {
+    margin-right: 0; /* Remove right margin from the last button */
+  }
+  
+  /* Modal Styling */
+  .modal-dialog {
+    max-width: 500px; /* Set a max width for the modal */
+    margin-top: 10vh; /* Center modal vertically */
+  }
+  
+  /* Form and button styles */
+  .form-control {
+    border-radius: 5px; /* Rounded corners for inputs */
+  }
+  
+  .btn {
+    border-radius: 5px; /* Rounded corners for buttons */
+  }
+  
+  .btn-close {
+    font-size: 1.25rem; /* Slightly larger close button */
+  }
+  
