@@ -33,7 +33,16 @@ public class EmployeRestService {
     public EmployeDto findEmploye(@PathVariable Long id) {
         return employerMetier.findEmploye(id);
     }
+    @PutMapping("/{id}")
+    public EmployeDto updateEmploye(@PathVariable Long id, @RequestBody EmployeDto employeDTO) {
+        return employerMetier.updateEmploye(id, employeDTO);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEmploye(@PathVariable Long id) {
+        employerMetier.deleteEmploye(id);
+        return ResponseEntity.noContent().build();
+    }
     @PostMapping("/{employeId}/assign-to-group/{groupeId}")
     public void assignEmployeToGroupe(@PathVariable Long employeId, @PathVariable Long groupeId) {
         employerMetier.assignEmployeToGroupe(employeId, groupeId);

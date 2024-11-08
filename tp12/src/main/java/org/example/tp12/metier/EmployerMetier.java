@@ -13,4 +13,6 @@ public interface EmployerMetier {
     public List<EmployeDto> getAllEmployes();
     public void assignEmployeToGroupe(Long employeId, Long groupeId);
     public EmployeDto findEmploye(Long employeId);
+    public void deleteEmploye(Long id);
+    public EmployeDto updateEmploye(Long id, EmployeDto employeDTO);
 }

@@ -25,4 +25,12 @@ export class EmployeService {
   assignEmployeeToGroup(employeeId: number, groupId: number): Observable<void> {
     return this.http.post<void>(`${BASIC_URL}/employees/${employeeId}/assign-to-group/${groupId}`, {});
   }
+
+  updateEmployee(employeeId: number, employeeData: any): Observable<any> {
+    return this.http.put<any>(`${BASIC_URL}/employees/${employeeId}`, employeeData);
+  }
+
+  deleteEmployee(employeeId: number): Observable<void> {
+    return this.http.delete<void>(`${BASIC_URL}/employees/${employeeId}`);
+  }
 }

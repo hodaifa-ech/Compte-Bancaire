@@ -63,6 +63,33 @@ public class EmployerMetierImpl  implements  EmployerMetier{
                 .orElseThrow(() -> new RuntimeException("Employe not found"));
         return mapToDTO(employe);
     }
+
+    public EmployeDto updateEmploye(Long id, EmployeDto employeDTO) {
+        Employe employe = employeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employe not found"));
+
+        employe.setNomEmploye(employeDTO.getNomEmploye());
+
+        if (employeDTO.getEmployeSupId() != null) {
+            Employe supervisor = employeRepository.findById(employeDTO.getEmployeSupId())
+                    .orElseThrow(() -> new RuntimeException("Supervisor not found"));
+            employe.setEmployeSup(supervisor);
+        }
+
+        if (employeDTO.getGroupeIds() != null) {
+            List<Groupe> groupes = groupeRepository.findAllById(employeDTO.getGroupeIds());
+            employe.setGroupes(groupes);
+        }
+
+        Employe updatedEmploye = employeRepository.save(employe);
+        return mapToDTO(updatedEmploye);
+    }
+
+    public void deleteEmploye(Long id) {
+        Employe employe = employeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employe not found"));
+        employeRepository.delete(employe);
+    }
     private EmployeDto mapToDTO(Employe employe) {
         EmployeDto dto = new EmployeDto();
         // Map each Groupe to its ID and set it as groupeIds in the DTO
