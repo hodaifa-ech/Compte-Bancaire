@@ -1,0 +1,89 @@
+<div class="container mt-4">
+    <h3>Compte List</h3>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Code Compte</th>
+          <th>Nom Client</th>
+          <th>Solde</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let compte of comptes">
+          <td>{{ compte.codeCompte }}</td>
+          <td>{{ compte.nomClient }}</td>
+          <td>{{ compte.solde }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <button class="btn btn-primary" (click)="toggleAddComptePopup()">Add Compte</button>
+  
+    <!-- Popup Modal for Adding Compte -->
+    <div class="modal" [ngClass]="{ 'show': showAddComptePopup }" tabindex="-1" aria-hidden="true" style="display: block;" *ngIf="showAddComptePopup">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Compte</h5>
+            <button type="button" class="btn-close" (click)="toggleAddComptePopup()" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="compteForm" (ngSubmit)="addCompte()">
+              <div class="mb-3">
+                <label for="codeCompte" class="form-label">Code Compte</label>
+                <input id="codeCompte" type="text" class="form-control" formControlName="codeCompte" />
+                <div *ngIf="compteForm.get('codeCompte')?.invalid && compteForm.get('codeCompte')?.touched" class="text-danger">
+                  Code Compte is required.
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="dateCreation" class="form-label">Date Creation</label>
+                <input id="dateCreation" type="date" class="form-control" formControlName="dateCreation" />
+              </div>
+  
+              <div class="mb-3">
+                <label for="clientId" class="form-label">Client</label>
+                <select id="clientId" class="form-select" formControlName="clientId">
+                  <option *ngFor="let client of clients" [value]="client.codeClient">{{ client.nomClient }}</option>
+                </select>
+              </div>
+  
+              <div class="mb-3">
+                <label for="employeId" class="form-label">Employe</label>
+                <select id="employeId" class="form-select" formControlName="employeId">
+                  <option *ngFor="let employe of employees" [value]="employe.codeEmploye">{{ employe.nomEmploye }}</option>
+                </select>
+              </div>
+  
+              <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <select id="type" class="form-select" formControlName="type">
+                  <option value="CC">Compte Courant</option>
+                  <option value="CE">Compte Epargne</option>
+                </select>
+              </div>
+  
+              <div *ngIf="compteForm.get('type')?.value === 'CE'" class="mb-3">
+                <label for="taux" class="form-label">Taux</label>
+                <input id="taux" type="number" class="form-control" formControlName="taux" />
+              </div>
+  
+              <div *ngIf="compteForm.get('type')?.value === 'CC'" class="mb-3">
+                <label for="decouvert" class="form-label">Decouvert</label>
+                <input id="decouvert" type="number" class="form-control" formControlName="decouvert" />
+              </div>
+  
+              <div class="mb-3">
+                <label for="solde" class="form-label">Solde</label>
+                <input id="solde" type="number" class="form-control" formControlName="solde" />
+              </div>
+  
+              <button type="submit" class="btn btn-success" [disabled]="compteForm.invalid">Add Compte</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

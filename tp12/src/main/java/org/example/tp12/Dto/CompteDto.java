@@ -18,4 +18,6 @@ public class CompteDto implements Serializable {
     private Long employeId;
     private double taux; // For CompteEpargne
     private double decouvert; // For CompteCourant
+    private String nomClient;
+    private String nomEmploye;
 }

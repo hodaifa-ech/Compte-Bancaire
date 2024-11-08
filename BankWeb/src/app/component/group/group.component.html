@@ -1,0 +1,53 @@
+<div class="container mt-4">
+    <h3>Groups List</h3>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Code Groupe</th>
+          <th>Nom Groupe</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of groups">
+          <td>{{ group.codeGroupe }}</td>
+          <td>{{ group.nomGroupe }}</td>
+        
+        </tr>
+      </tbody>
+    </table>
+    
+    <button class="btn btn-primary" (click)="toggleAddGroupPopup()">Add Group</button>
+  
+    <!-- Popup Modal for Adding Group -->
+    <div class="modal" tabindex="-1" [ngClass]="{'d-block': showAddGroupPopup}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Group</h5>
+            <button type="button" class="btn-close" (click)="toggleAddGroupPopup()"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="groupForm" (ngSubmit)="addGroup()">
+            
+              <div class="mb-3">
+                <label for="nomGroupe" class="form-label">Nom Groupe</label>
+                <input
+                  id="nomGroupe"
+                  type="text"
+                  class="form-control"
+                  formControlName="nomGroupe"
+                />
+                <div *ngIf="groupForm.get('nomGroupe')?.invalid && groupForm.get('nomGroupe')?.touched" class="text-danger">
+                  Nom Groupe is required.
+                </div>
+              </div>
+             
+              <button type="submit" class="btn btn-success" [disabled]="groupForm.invalid">Add Group</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -6,6 +6,8 @@ const BASIC_URL = 'http://localhost:8081/api';
   providedIn: 'root'
 })
 export class ServiceBankService {
+  id: number =0;;
+  nomEmploye: string ='';
 
   constructor(private http: HttpClient) {}
 
@@ -28,4 +30,6 @@ export class ServiceBankService {
   deleteClient(codeClient: number): Observable<any> {
     return this.http.delete(`${BASIC_URL}/clients/${codeClient}`);
   }
+
+   
 }

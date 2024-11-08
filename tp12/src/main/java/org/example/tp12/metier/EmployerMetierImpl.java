@@ -73,6 +73,11 @@ public class EmployerMetierImpl  implements  EmployerMetier{
                             .map(Groupe::getCodeGroupe)
                             .collect(Collectors.toList())
             );
+            dto.setGroupeNames(
+                    employe.getGroupes().stream()
+                            .map(Groupe::getNomGroupe)
+                            .collect(Collectors.toList())
+            );
         }
 
         dto.setCodeEmploye(employe.getCodeEmploye());

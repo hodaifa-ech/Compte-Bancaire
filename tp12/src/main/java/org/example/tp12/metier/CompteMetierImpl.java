@@ -68,7 +68,8 @@ public class CompteMetierImpl implements CompteMetier {
         dto.setSolde(compte.getSolde());
         dto.setClientId(compte.getClient().getCodeClient());
         dto.setEmployeId(compte.getEmploye().getCodeEmploye());
-
+        dto.setNomClient(compte.getClient().getNomClient());
+        dto.setNomEmploye(compte.getEmploye().getNomEmploye());
         if (compte instanceof CompteEpargne) {
             dto.setType("CE");
             dto.setTaux(((CompteEpargne) compte).getTaux());

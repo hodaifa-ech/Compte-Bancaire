@@ -1,45 +1,19 @@
 package org.example.tp12.Dto;
 
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 
+@Data
 public class EmployeDto implements Serializable {
     private Long codeEmploye;
     private String nomEmploye;
     private Long employeSupId;
     private List<Long> groupeIds;
+    private List<String> groupeNames;
 
 
-    public Long getCodeEmploye() {
-        return codeEmploye;
-    }
 
-    public void setCodeEmploye(Long codeEmploye) {
-        this.codeEmploye = codeEmploye;
-    }
-
-    public String getNomEmploye() {
-        return nomEmploye;
-    }
-
-    public void setNomEmploye(String nomEmploye) {
-        this.nomEmploye = nomEmploye;
-    }
-
-    public Long getEmployeSupId() {
-        return employeSupId;
-    }
-
-    public void setEmployeSupId(Long employeSupId) {
-        this.employeSupId = employeSupId;
-    }
-
-    public List<Long> getGroupeIds() {
-        return groupeIds;
-    }
-
-    public void setGroupeIds(List<Long> groupeIds) {
-        this.groupeIds = groupeIds;
-    }
 }
