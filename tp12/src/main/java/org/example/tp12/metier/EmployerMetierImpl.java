@@ -1,6 +1,7 @@
 package org.example.tp12.metier;
 
 import org.example.tp12.Dto.EmployeDto;
+import org.example.tp12.dao.CompteRepository;
 import org.example.tp12.dao.EmployeRepository;
 import org.example.tp12.dao.GroupRepository;
 import org.example.tp12.entities.Employe;
@@ -20,6 +21,8 @@ public class EmployerMetierImpl  implements  EmployerMetier{
 
     @Autowired
     private GroupRepository groupeRepository;
+    @Autowired
+    private CompteRepository compteRepository;
 
     public EmployeDto addEmploye(EmployeDto employeDTO) {
         Employe employe = new Employe();
@@ -88,6 +91,7 @@ public class EmployerMetierImpl  implements  EmployerMetier{
     public void deleteEmploye(Long id) {
         Employe employe = employeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employe not found"));
+
         employeRepository.delete(employe);
     }
     private EmployeDto mapToDTO(Employe employe) {

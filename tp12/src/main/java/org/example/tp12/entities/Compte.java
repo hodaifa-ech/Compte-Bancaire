@@ -24,10 +24,12 @@ public abstract class Compte implements Serializable {
     @ManyToOne
     @JoinColumn(name="CODE_CLI")
     private Client client;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="CODE_EMP")
     private Employe employe;
-    @OneToMany(mappedBy="compte")
+
+    @OneToMany(mappedBy="compte", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Operation> operations;
     public Compte(String codeCompte, Date dateCreation, double solde) {
         super();

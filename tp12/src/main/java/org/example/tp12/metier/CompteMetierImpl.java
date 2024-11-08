@@ -60,6 +60,36 @@ public class CompteMetierImpl implements CompteMetier {
         return mapToDTO(compte);
     }
 
+    public CompteDto updateCompte(Long codeCompte, CompteDto compteDTO) {
+        Compte compte = compteRepository.findById(codeCompte)
+                .orElseThrow(() -> new RuntimeException("Compte not found"));
+
+        if ("CE".equals(compteDTO.getType())) {
+            ((CompteEpargne) compte).setTaux(compteDTO.getTaux());
+        } else if ("CC".equals(compteDTO.getType())) {
+            ((CompteCourant) compte).setDecouvert(compteDTO.getDecouvert());
+        }
+
+        compte.setSolde(compteDTO.getSolde());
+        compte.setDateCreation(compteDTO.getDateCreation());
+
+        Client client = clientRepository.findById(compteDTO.getClientId())
+                .orElseThrow(() -> new RuntimeException("Client not found"));
+        Employe employe = employeRepository.findById(compteDTO.getEmployeId())
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        compte.setClient(client);
+        compte.setEmploye(employe);
+
+        Compte updatedCompte = compteRepository.save(compte);
+        return mapToDTO(updatedCompte);
+    }
+
+    public void deleteCompte(Long codeCompte) {
+        Compte compte = compteRepository.findById(codeCompte)
+                .orElseThrow(() -> new RuntimeException("Compte not found"));
+        compteRepository.delete(compte);
+    }
 
     private CompteDto mapToDTO(Compte compte) {
         CompteDto dto = new CompteDto();

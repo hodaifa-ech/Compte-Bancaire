@@ -11,4 +11,6 @@ public interface GroupMetier {
 
     public List<GroupDto> getAllGroupes();
     public GroupDto addGroupe(GroupDto groupeDTO);
+    public GroupDto updateGroup(Long id, GroupDto groupDto);
+    public void deleteGroup(Long id);
 }

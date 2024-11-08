@@ -13,12 +13,16 @@ public class Employe implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long codeEmploye;
     private String nomEmploye;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="code_emp_sup")
     private Employe employeSup;
+
     @ManyToMany
     @JoinTable(name="EMP_GR")
     private Collection<Groupe> groupes;
+
+    @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Compte> comptes;
     public Employe(String nomEmploye) {
         super();
         this.nomEmploye = nomEmploye;

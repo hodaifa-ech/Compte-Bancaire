@@ -13,4 +13,5 @@ public interface OperationMetier {
     public VersmentDto versementToAmie(VersmentDto versmentDto);
     public RetraitDto retrait(RetraitDto retraitDto);
     public List<OperationDto> findOperationsByClientId(Long clientId);
+
 }

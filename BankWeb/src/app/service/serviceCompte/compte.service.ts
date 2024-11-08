@@ -21,4 +21,18 @@ export class CompteService {
   addCompte(compte: any): Observable<any> {
     return this.http.post(this.apiUrl, compte);
   }
+
+  updateCompte(codeCompte: number, compte: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${codeCompte}`, compte);
+  }
+
+  // Delete a compte
+  deleteCompte(codeCompte: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${codeCompte}`);
+  }
+
+   // Fetch a Compte by its code
+   findCompteByCode(codeCompte: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${codeCompte}`);
+  }
 }

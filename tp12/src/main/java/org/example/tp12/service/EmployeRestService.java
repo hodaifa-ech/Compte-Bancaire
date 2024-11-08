@@ -41,7 +41,7 @@ public class EmployeRestService {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmploye(@PathVariable Long id) {
         employerMetier.deleteEmploye(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
     @PostMapping("/{employeId}/assign-to-group/{groupeId}")
     public void assignEmployeToGroupe(@PathVariable Long employeId, @PathVariable Long groupeId) {

@@ -1,79 +1,110 @@
 <div class="container mt-5">
-    <!-- Employee Table -->
-    <table class="table table-bordered">
-      <thead class="thead-dark">
-        <tr>
-          <th>Employee Name</th>
-          <th>Groups</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let employee of employees">
-          <td>{{ employee.nomEmploye }}</td>
-          <td>
-            <ul class="list-unstyled">
-              <li *ngFor="let group of employee.groupeNames">{{ group }}</li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <!-- Action Buttons -->
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-primary me-2" (click)="openAddEmployeeModal()">Create Employee</button>
-      <button class="btn btn-secondary" (click)="openAssignGroupModal()">Assign Employee to Group</button>
-    </div>
+  <!-- Employee Table -->
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Employee Name</th>
+        <th>Groups</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.nomEmploye }}</td>
+        <td>
+          <ul class="list-unstyled">
+            <li *ngFor="let group of employee.groupeNames">{{ group }}</li>
+          </ul>
+        </td>
+        <td>
+          <button class="btn btn-outline-primary btn-sm me-2" (click)="openEditEmployeeModal(employee)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-outline-danger btn-sm" (click)="deleteEmployee(employee.codeEmploye)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Action Buttons -->
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary me-2" (click)="openAddEmployeeModal()">Create Employee</button>
+    <button class="btn btn-secondary" (click)="openAssignGroupModal()">Assign Employee to Group</button>
   </div>
-  
-  <!-- Add Employee Modal -->
-  <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true" [ngClass]="{ 'show': showAddEmployeeModal }" style="display: {{ showAddEmployeeModal ? 'block' : 'none' }}">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addEmployeeModalLabel">Add New Employee</h5>
-          <button type="button" class="btn-close" (click)="closeModal()"></button>
-        </div>
-        <div class="modal-body">
-          <input [(ngModel)]="newEmployeeName" class="form-control" placeholder="Employee Name" (input)="validateForm()" />
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-          <button type="button" class="btn btn-primary" (click)="addEmployee()" [disabled]="!isFormValid">Add</button>
-        </div>
+</div>
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true" 
+     [ngClass]="{ 'show': showAddEmployeeModal }" style="display: {{ showAddEmployeeModal ? 'block' : 'none' }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addEmployeeModalLabel">Add New Employee</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <input [(ngModel)]="newEmployeeName" class="form-control" placeholder="Employee Name" (input)="validateForm()" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addEmployee()" [disabled]="!isFormValid">Add</button>
       </div>
     </div>
   </div>
-  
-  <!-- Assign Employee to Group Modal -->
-  <div class="modal fade" id="assignGroupModal" tabindex="-1" aria-labelledby="assignGroupModalLabel" aria-hidden="true" [ngClass]="{ 'show': showAssignGroupModal }" style="display: {{ showAssignGroupModal ? 'block' : 'none' }}">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="assignGroupModalLabel">Assign Employee to Group</h5>
-          <button type="button" class="btn-close" (click)="closeModal()"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="employeeSelect" class="form-label">Select Employee</label>
-            <select id="employeeSelect" class="form-select" [(ngModel)]="selectedEmployeeId">
-              <option *ngFor="let employee of employees" [value]="employee.codeEmploye">
-                {{ employee.nomEmploye }}
-              </option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="groupSelect" class="form-label">Select Group</label>
-            <select id="groupSelect" class="form-select" [(ngModel)]="selectedGroupId">
-              <option *ngFor="let group of groups" [value]="group.codeGroupe">{{ group.nomGroupe }}</option>
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-          <button type="button" class="btn btn-primary" (click)="assignEmployeeToGroup()" [disabled]="!selectedEmployeeId || !selectedGroupId">Save</button>
-        </div>
+</div>
+
+<!-- Edit Employee Modal -->
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="editEmployeeModalLabel" aria-hidden="true" 
+     [ngClass]="{ 'show': showEditEmployeeModal }" style="display: {{ showEditEmployeeModal ? 'block' : 'none' }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editEmployeeModalLabel">Edit Employee</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <input [(ngModel)]="editEmployeeName" class="form-control" placeholder="Employee Name" (input)="validateEditForm()" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateEmployee()" [disabled]="!isEditFormValid">Save</button>
       </div>
     </div>
   </div>
-  
+</div>
+
+<!-- Assign Employee to Group Modal -->
+<div class="modal fade" id="assignGroupModal" tabindex="-1" aria-labelledby="assignGroupModalLabel" aria-hidden="true" 
+     [ngClass]="{ 'show': showAssignGroupModal }" style="display: {{ showAssignGroupModal ? 'block' : 'none' }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="assignGroupModalLabel">Assign Employee to Group</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="employeeSelect" class="form-label">Select Employee</label>
+          <select id="employeeSelect" class="form-select" [(ngModel)]="selectedEmployeeId">
+            <option *ngFor="let employee of employees" [value]="employee.codeEmploye">
+              {{ employee.nomEmploye }}
+            </option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="groupSelect" class="form-label">Select Group</label>
+          <select id="groupSelect" class="form-select" [(ngModel)]="selectedGroupId">
+            <option *ngFor="let group of groups" [value]="group.codeGroupe">{{ group.nomGroupe }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="assignEmployeeToGroup()" 
+                [disabled]="!selectedEmployeeId || !selectedGroupId">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

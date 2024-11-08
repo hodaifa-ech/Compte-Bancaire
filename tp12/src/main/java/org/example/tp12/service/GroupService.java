@@ -25,4 +25,15 @@ public class GroupService {
     public List<GroupDto> getAllGroupes() {
         return groupMetier.getAllGroupes();
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<GroupDto> updateGroup(@PathVariable Long id, @RequestBody GroupDto groupDto) {
+        return ResponseEntity.ok(groupMetier.updateGroup(id, groupDto));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteGroup(@PathVariable Long id) {
+        groupMetier.deleteGroup(id);
+        return ResponseEntity.noContent().build();
+    }
 }

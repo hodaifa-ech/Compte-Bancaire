@@ -32,7 +32,21 @@ public class GroupMetierImpl implements GroupMetier {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+    public GroupDto updateGroup(Long id, GroupDto groupDto) {
+        Groupe existingGroup = groupeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Group not found with id " + id));
 
+        existingGroup.setNomGroupe(groupDto.getNomGroupe());
+
+        Groupe updatedGroup = groupeRepository.save(existingGroup);
+        return mapToDTO(updatedGroup);
+    }
+
+    public void deleteGroup(Long id) {
+        Groupe group = groupeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Group not found with id " + id));
+        groupeRepository.delete(group);
+    }
     private GroupDto mapToDTO(Groupe groupe) {
         GroupDto dto = new GroupDto();
         dto.setCodeGroupe(groupe.getCodeGroupe());

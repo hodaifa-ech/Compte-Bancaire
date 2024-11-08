@@ -20,4 +20,11 @@ export class GroupService {
 
     return this.http.post(`${this.apiUrl}/add`, group);
   }
+  updateGroup(id: number, group: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update/${id}`, group);
+  }
+
+  deleteGroup(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete/${id}`);
+  }
 }

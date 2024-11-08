@@ -11,7 +11,7 @@ public class Groupe implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long codeGroupe;
     private String nomGroupe;
-    @ManyToMany(mappedBy="groupes")
+    @ManyToMany(mappedBy="groupes" ,cascade=CascadeType.ALL)
     private Collection<Employe> employe;
     public Groupe(String nomGroupe) {
         super();
