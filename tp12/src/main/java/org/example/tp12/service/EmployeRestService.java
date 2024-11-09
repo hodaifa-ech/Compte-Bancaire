@@ -21,11 +21,14 @@ public class EmployeRestService {
 
     @PostMapping("/add")
     public EmployeDto addEmploye(@RequestBody EmployeDto employeDTO) {
+        System.out.println(employeDTO);
         return employerMetier.addEmploye(employeDTO);
     }
 
     @GetMapping
     public List<EmployeDto> getAllEmployes() {
+       List <EmployeDto> employes = employerMetier.getAllEmployes();
+       System.out.println(employes);
         return employerMetier.getAllEmployes();
     }
 

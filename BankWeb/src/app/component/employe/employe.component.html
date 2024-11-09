@@ -6,6 +6,7 @@
       <thead class="table-header">
         <tr>
           <th>Employee Name</th>
+          <th>Supervisor</th> <!-- New Column -->
           <th>Groups</th>
           <th class="text-center">Actions</th>
         </tr>
@@ -13,6 +14,7 @@
       <tbody>
         <tr *ngFor="let employee of employees  | paginate: { itemsPerPage: 5, currentPage: currentPage }">
           <td>{{ employee.nomEmploye }}</td>
+          <td>{{ employee.employeSupName  }}</td>
           <td>
             <ul class="list-unstyled">
               <li *ngFor="let group of employee.groupeNames">{{ group }}</li>
@@ -51,6 +53,15 @@
       </div>
       <div class="modal-body">
         <input [(ngModel)]="newEmployeeName" class="form-control" placeholder="Employee Name" (input)="validateForm()" />
+        <div class="mt-3">
+          <label for="supervisorSelectAdd" class="form-label">Select Supervisor (optional)</label>
+          <select id="supervisorSelectAdd" class="form-select" name="employeSupId" [(ngModel)]="newEmployeeSupervisorId">
+            <option [value]="null">None</option>
+            <option *ngFor="let employee of employees" [value]="employee.codeEmploye">
+              {{ employee.nomEmploye }}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
@@ -70,6 +81,15 @@
       </div>
       <div class="modal-body">
         <input [(ngModel)]="editEmployeeName" class="form-control" placeholder="Employee Name" (input)="validateEditForm()" />
+        <div class="mt-3">
+          <label for="supervisorSelectEdit" class="form-label">Select Supervisor (optional)</label>
+          <select id="supervisorSelectEdit" class="form-select" [(ngModel)]="editEmployeeSupervisorId">
+            <option [value]="null">None</option>
+            <option *ngFor="let employee of employees" [value]="employee.codeEmploye">
+              {{ employee.nomEmploye }}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>

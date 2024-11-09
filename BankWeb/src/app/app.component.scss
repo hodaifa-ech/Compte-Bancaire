@@ -1,4 +1,3 @@
-/* Logo styling */
 .navbar-logo {
   width: 120px; /* Adjust size */
   height: auto;
@@ -11,13 +10,15 @@
   transition: color 0.3s ease, padding-bottom 0.3s ease;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.active-link {
   color: #007bff; /* Bootstrap primary color, adjust as needed */
   padding-bottom: 10px;
 }
 
 /* Underline effect when hovering */
-.nav-link::after {
+.nav-link::after,
+.nav-link.active-link::after {
   content: '';
   position: absolute;
   left: 0;
@@ -28,6 +29,7 @@
   transition: background-color 0.3s ease;
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active-link::after {
   background-color: #007bff; /* Change color to match your theme */
 }

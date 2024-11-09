@@ -10,6 +10,7 @@ import java.util.List;
 public class EmployeDto implements Serializable {
     private Long codeEmploye;
     private String nomEmploye;
+    private String EmployeSupName;
     private Long employeSupId;
     private List<Long> groupeIds;
     private List<String> groupeNames;

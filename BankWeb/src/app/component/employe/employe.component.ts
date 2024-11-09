@@ -20,6 +20,8 @@ export class EmployeComponent {
   isEditFormValid: boolean = false;
   employeeToEdit: any = null;
   currentPage: number = 1;
+  newEmployeeSupervisorId: number | null = null; // Track selected supervisor for new employee
+editEmployeeSupervisorId: number | null = null;
   constructor(private employeeService: EmployeService) {}
 
   ngOnInit(): void {
@@ -73,7 +75,11 @@ export class EmployeComponent {
   }
 
   addEmployee(): void {
-    const employeeData = { nomEmploye: this.newEmployeeName };
+    const employeeData = { nomEmploye: this.newEmployeeName ,
+      employeSupId: this.newEmployeeSupervisorId || null
+    };
+
+    console.log(employeeData);
     this.employeeService.addEmployee(employeeData).subscribe(() => {
       this.loadEmployees();
       this.closeModal();
@@ -82,7 +88,9 @@ export class EmployeComponent {
 
   updateEmployee(): void {
     if (this.employeeToEdit) {
-      const updatedData = { nomEmploye: this.editEmployeeName };
+      const updatedData = { nomEmploye: this.editEmployeeName,
+        employeSupId: this.editEmployeeSupervisorId || null
+       };
       this.employeeService.updateEmployee(this.employeeToEdit.codeEmploye, updatedData).subscribe(() => {
         this.loadEmployees();
         this.closeModal();

@@ -114,6 +114,7 @@ public class EmployerMetierImpl  implements  EmployerMetier{
         dto.setCodeEmploye(employe.getCodeEmploye());
         dto.setNomEmploye(employe.getNomEmploye());
         dto.setEmployeSupId(employe.getEmployeSup() != null ? employe.getEmployeSup().getCodeEmploye() : null);
+        dto.setEmployeSupName(employe.getEmployeSup()!=null?employe.getEmployeSup().getNomEmploye():null);
 
         return dto;
     }
