@@ -35,4 +35,8 @@ export class CompteService {
    findCompteByCode(codeCompte: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${codeCompte}`);
   }
+
+  findComptesByClientId(clientId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/client/${clientId}`);
+  }
 }

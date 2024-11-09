@@ -13,7 +13,7 @@ export class GroupComponent {
   showAddGroupPopup: boolean = false;
   showEditGroupPopup: boolean = false;
   selectedGroupId: string | null = null;
-
+  currentPage: number = 1;
   constructor(private groupService: GroupService, private fb: FormBuilder) {
     this.groupForm = this.fb.group({
       nomGroupe: ['', Validators.required],

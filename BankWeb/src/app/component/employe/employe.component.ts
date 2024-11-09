@@ -19,7 +19,7 @@ export class EmployeComponent {
   isFormValid: boolean = false;
   isEditFormValid: boolean = false;
   employeeToEdit: any = null;
-
+  currentPage: number = 1;
   constructor(private employeeService: EmployeService) {}
 
   ngOnInit(): void {

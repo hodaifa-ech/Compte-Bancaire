@@ -90,7 +90,13 @@ public class CompteMetierImpl implements CompteMetier {
                 .orElseThrow(() -> new RuntimeException("Compte not found"));
         compteRepository.delete(compte);
     }
-
+    public List<CompteDto> findAllComptesByClient(Long clientId) {
+        Client client = clientRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Client not found"));
+        return compteRepository.findByClient(client)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
     private CompteDto mapToDTO(Compte compte) {
         CompteDto dto = new CompteDto();
         dto.setCodeCompte(compte.getCodeCompte());

@@ -17,7 +17,7 @@ export class CompteComponent {
   showAddComptePopup: boolean = false;
   showDisplayComptePopup: boolean = false; // New property for display mode
   isEditMode: boolean = false;
-
+  currentPage: number = 1;
   constructor(
     private compteService: CompteService,
     private employeService: EmployeService,
@@ -161,4 +161,5 @@ export class CompteComponent {
   closeDisplayPopup(): void {
     this.showDisplayComptePopup = false;
   }
+  
 }

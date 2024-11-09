@@ -70,9 +70,9 @@ public class OperationMetierImpl implements OperationMetier {
                 .orElseThrow(() -> new RuntimeException("Compte source not found"));
 
 
-        if (compteSource.getSolde() < versmentDto.getMontant()) {
-            throw new RuntimeException("Insufficient balance in the source account");
-        }
+//        if (compteSource.getSolde() < versmentDto.getMontant()) {
+//            throw new RuntimeException("Insufficient balance in the source account");
+//        }
 
 
         compteSource.setSolde(compteSource.getSolde() +versmentDto.getMontant());
@@ -143,6 +143,11 @@ public class OperationMetierImpl implements OperationMetier {
         dto.setEmployeName(operation.getEmploye().getNomEmploye());
         dto.setClientName(operation.getCompte().getClient().getNomClient());
         dto.setCompteId(Long.parseLong(operation.getCompte().getCodeCompte()));
+        if (operation instanceof Retrait) {
+            dto.setType("Retrait");
+        } else if (operation instanceof Versment) {
+            dto.setType("Versment");
+        }
         return dto;
     }
 

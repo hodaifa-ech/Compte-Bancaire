@@ -1,37 +1,53 @@
 <div class="container mt-4">
-  <!-- Table to list clients -->
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Client Code</th>
-        <th>Client Name</th>
-        <th>Actions</th> <!-- New column for actions -->
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let client of clients">
-        <td>{{ client.codeClient }}</td>
-        <td>{{ client.nomClient }}</td>
-        <td>
-          <!-- Edit and Delete buttons -->
-          <button class="btn btn-warning btn-sm mr-2" (click)="openForm(client)">
-            <i class="fas fa-pencil-alt"></i> <!-- Pencil icon for edit -->
-          </button>
-          <button class="btn btn-danger btn-sm" (click)="deleteClient(client)">
-            <i class="fas fa-trash"></i> <!-- Trash icon for delete -->
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <h3>Client </h3>
+  <!-- Client Table -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-header">
+        <tr>
+          <th>Client Code</th>
+          <th>Client Name</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients | paginate: { itemsPerPage: 5, currentPage: currentPage }">
+          <td>{{ client.codeClient }}</td>
+          <td>{{ client.nomClient }}</td>
+          <td class="text-center">
+            <button class="btn btn-outline-info btn-sm me-2" (click)="openComptesModal(client.codeClient)">
+              Comptes
+            </button>
+            <button class="btn btn-outline-primary btn-sm me-2" (click)="openOperationsModal(client.codeClient)">
+              Operations
+            </button>
+            <button class="btn btn-outline-warning btn-sm me-2" (click)="openForm(client)">
+              <i class="fas fa-pencil-alt"></i> Edit
+            </button>
+            <button class="btn btn-outline-danger btn-sm me-2" (click)="deleteClient(client)">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <!-- Button to open the add client form -->
-  <button class="btn btn-primary mt-3" (click)="openForm()">Add Client</button>
+  <!-- Pagination Controls -->
+  <div class="pagination-container">
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
 
-  <!-- Add Client Form Popup -->
-  <div *ngIf="showForm" class="modal d-block fade-in" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
+
+  <!-- Add Client Button -->
+  <div class="text-end mt-3 w-100">
+    <button class="btn btn-outline-primary w-100" (click)="openForm()">Add Client</button>
+  </div>
+
+  <!-- Form Modal for Adding/Editing Clients -->
+  <div *ngIf="showForm" class="modal d-block fade-in">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-sm">
         <div class="modal-header">
           <h5 class="modal-title">{{ currentClient ? 'Update Client' : 'Create New Client' }}</h5>
           <button type="button" class="btn-close" (click)="closeForm()"></button>
@@ -42,20 +58,101 @@
               <label for="nomClient" class="form-label">Client Name</label>
               <input type="text" id="nomClient" class="form-control" formControlName="nomClient" />
               <div *ngIf="clientForm.controls['nomClient'].invalid && clientForm.controls['nomClient'].touched" class="text-danger">
-                <div *ngIf="clientForm.controls['nomClient'].errors?.['required']">
-                  Client name is required
-                </div>
-                <div *ngIf="clientForm.controls['nomClient'].errors?.['pattern']">
-                  Client name should not contain symbols or numbers
-                </div>
+                <div *ngIf="clientForm.controls['nomClient'].errors?.['required']">Client name is required</div>
+                <div *ngIf="clientForm.controls['nomClient'].errors?.['pattern']">Client name should not contain symbols or numbers</div>
               </div>
             </div>
-            <button type="submit" class="btn btn-success" [disabled]="clientForm.invalid">{{ currentClient ? 'Update' : 'Save' }}</button>
-            <button type="button" class="btn btn-secondary ml-2" (click)="closeForm()">Cancel</button>
+            <button type="submit" class="btn btn-success w-100">{{ currentClient ? 'Update' : 'Save' }}</button>
+            <button type="button" class="btn btn-secondary w-100 mt-2" (click)="closeForm()">Cancel</button>
           </form>
         </div>
       </div>
     </div>
   </div>
-</div>
 
+  <!-- Comptes Modal -->
+  <div *ngIf="showComptesModal" class="modal d-block fade-in">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow-sm">
+        <div class="modal-header">
+          <h5 class="modal-title">Comptes for {{ currentClient?.nomClient }}</h5>
+          <button type="button" class="btn-close" (click)="closeComptesModal()"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Code Compte</th>
+                <th>Date Creation</th>
+                <th>Solde</th>
+                <th>Type</th>
+                <th>Employe</th>
+                <th>Client</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let compte of comptes | paginate: { itemsPerPage: 5, currentPage: currentPage }">
+                <td>{{ compte.codeCompte }}</td>
+                <td>{{ compte.dateCreation | date }}</td>
+                <td>{{ compte.solde }}</td>
+                <td>{{ compte.type }}</td>
+                <td>{{ compte.nomEmploye }}</td>
+                <td>{{ compte.nomClient }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-container">
+          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeComptesModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Operations Modal -->
+  <div *ngIf="showOperationsModal" class="modal d-block fade-in">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow-sm">
+        <div class="modal-header">
+          <h5 class="modal-title">Operations for {{ currentClient?.nomClient }}</h5>
+          <button type="button" class="btn-close" (click)="closeOperationsModal()"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Operation Number</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Account ID</th>
+                <th>Employee Name</th>
+                <th>Client Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let operation of operations | paginate: { itemsPerPage: 5, currentPage: currentPage }">
+                <td>{{ operation.numeroOperation }}</td>
+                <td>{{ operation.dateOperation | date }}</td>
+                <td>{{ operation.montant }}</td>
+                <td>{{ operation.type }}</td>
+                <td>{{ operation.compteId }}</td>
+                <td>{{ operation.employeName }}</td>
+                <td>{{ operation.clientName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-container">
+          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeOperationsModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

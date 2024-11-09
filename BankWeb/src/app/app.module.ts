@@ -7,11 +7,13 @@ import { ClientComponent } from './component/client/client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { EmployeComponent } from './component/employe/employe.component';
 import { GroupComponent } from './component/group/group.component';
 import { CompteComponent } from './component/compte/compte.component';
 import { OperationComponent } from './component/operation/operation.component';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,12 +29,13 @@ import { OperationComponent } from './component/operation/operation.component';
     ReactiveFormsModule,
    HttpClientModule,
    FontAwesomeModule,
-   FormsModule
-
+   FormsModule,
+   NgxPaginationModule
 
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

@@ -33,5 +33,7 @@ export class OperationService {
   versementTo(versmentDto: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/operation/versementTo`, versmentDto);
   }
-
+  getOperationsByClientId(clientId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/operation/${clientId}`);
+  }
 }

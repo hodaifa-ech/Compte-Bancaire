@@ -1,0 +1,100 @@
+.container {
+    padding: 2rem;
+  }
+
+  .table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .table {
+    th {
+      background-color: #f0f2f5;
+      font-weight: 600;
+    }
+
+    .table-header {
+      background-color: #e8eaf6;
+    }
+  }
+
+  .btn {
+    &-outline-primary { color: #0d6efd; }
+    &-outline-warning { color: #ffc107; }
+    &-outline-danger { color: #dc3545; }
+    &-outline-secondary { color: #6c757d; }
+    &-outline-info { color: #17a2b8; }
+
+    &:hover {
+      background-color: #f1f1f1;
+    }
+  }
+
+  .modal-content {
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .modal-header {
+    background-color: #e8eaf6;
+    border-bottom: 1px solid #dee2e6;
+    .modal-title {
+      font-weight: 600;
+    }
+  }
+
+  .modal-body {
+    p {
+      font-size: 1rem;
+      color: #333;
+    }
+  }
+
+  button[type="submit"] {
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  pagination-controls {
+    display: flex;
+    gap: 10px;
+  }
+  
+  pagination-controls .pagination-page {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  pagination-controls .pagination-page:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  pagination-controls .pagination-page-active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .pagination-controls .pagination-page:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .pagination-controls .pagination-page:last-child {
+    border-radius: 0 4px 4px 0;
+  }

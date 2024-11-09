@@ -2,18 +2,25 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServiceBankService } from '../../service/service-bank.service';
 import Swal from 'sweetalert2';
+import { CompteService } from '../../service/serviceCompte/compte.service';
+import { OperationService } from '../../service/serviceOperation/operation.service';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
 export class ClientComponent {
-
+  currentPage: number = 1;
+  page = 1; // For pagination
   clients: any[] = [];
   clientForm!: FormGroup;
   showForm: boolean = false;
   currentClient: any = null;
-  constructor(private clientService: ServiceBankService, private fb: FormBuilder) {
+  operations: any[] = []; // Store operations for the selected client
+  showOperationsModal: boolean = false; // Toggle to display operations modal
+  comptes: any[] = []; // Store comptes for the selected client
+  showComptesModal: boolean = false; // Toggle to display comptes modal
+  constructor(private clientService: ServiceBankService, private fb: FormBuilder,private compteService:CompteService,private opertaionService: OperationService) {
     this.clientForm = this.fb.group({
       nomClient: [
         '',
@@ -55,7 +62,17 @@ closeForm(): void {
   this.clientForm.reset();
   this.currentClient = null;
 }
+openComptesModal(clientId: number): void {
+  this.compteService.findComptesByClientId(clientId).subscribe((data) => {
+    this.comptes = data; // Store comptes for display
+    this.showComptesModal = true;
+  });
+}
 
+closeComptesModal(): void {
+  this.showComptesModal = false;
+  this.comptes = [];
+}
 // Submit the form to create or update a client
 onSubmit(): void {
   if (this.clientForm.valid) {
@@ -94,5 +111,18 @@ deleteClient(client: any): void {
       });
     }
   });
+}
+
+openOperationsModal(clientId: number): void {
+  this.opertaionService.getOperationsByClientId(clientId).subscribe((data) => {
+    this.operations = data; // Store operations for display
+    this.showOperationsModal = true;
+  });
+}
+
+// Close the operations modal
+closeOperationsModal(): void {
+  this.showOperationsModal = false;
+  this.operations = [];
 }
 }

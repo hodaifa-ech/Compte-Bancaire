@@ -1,34 +1,50 @@
-<div class="container mt-4">
+<<div class="container mt-4">
   <h3>Compte List</h3>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Code Compte</th>
-        <th>Nom Client</th>
-        <th>Solde</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let compte of comptes">
-        <td>{{ compte.codeCompte }}</td>
-        <td>{{ compte.nomClient }}</td>
-        <td>{{ compte.solde }}</td>
-        <td>
-          <button class="btn btn-primary me-3" (click)="showCompteDetails(compte.codeCompte)">Display</button>
-          <button class="btn btn-warning me-3" (click)="editCompte(compte)">Update</button>
-          <button class="btn btn-danger" (click)="deleteCompte(compte.codeCompte)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle">
+      <thead class="table-header">
+        <tr>
+          <th>Code Compte</th>
+          <th>Nom Client</th>
+          <th>Solde</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let compte of comptes | paginate: { itemsPerPage: 5, currentPage: currentPage }">
+          <td>{{ compte.codeCompte }}</td>
+          <td>{{ compte.nomClient }}</td>
+          <td>{{ compte.solde | currency }}</td>
+          <td class="text-center">
+            <button class="btn btn-outline-info btn-sm me-2" (click)="showCompteDetails(compte.codeCompte)">
+              Display
+            </button>
+            <button class="btn btn-outline-warning btn-sm me-2" (click)="editCompte(compte)">
+              Update
+            </button>
+            <button class="btn btn-outline-danger btn-sm" (click)="deleteCompte(compte.codeCompte)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <button class="btn btn-primary" (click)="toggleAddComptePopup()">Add Compte</button>
+  <!-- Pagination Controls -->
+  <div class="pagination-container">
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
+
+  <!-- Add Compte Button -->
+  <div class="text-end mt-3 w-100">
+    <button class="btn btn-outline-primary w-100" (click)="toggleAddComptePopup()">Add Compte</button>
+  </div>
 
   <!-- Popup Modal for Adding/Editing Compte -->
-  <div class="modal" [ngClass]="{ 'show': showAddComptePopup }" tabindex="-1" aria-hidden="true" style="display: block;" *ngIf="showAddComptePopup">
+  <div class="modal d-block fade-in" *ngIf="showAddComptePopup">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+      <div class="modal-content shadow">
         <div class="modal-header">
           <h5 class="modal-title">{{ isEditMode ? 'Edit Compte' : 'Add Compte' }}</h5>
           <button type="button" class="btn-close" (click)="toggleAddComptePopup()" aria-label="Close"></button>
@@ -50,7 +66,7 @@
 
             <div class="mb-3">
               <label for="clientId" class="form-label">Client</label>
-              <select id="clientId" class="form-select" formControlName="clientId">
+              <select id="clientId" class="form-select select2" formControlName="clientId">
                 <option *ngFor="let client of clients" [value]="client.codeClient">{{ client.nomClient }}</option>
               </select>
             </div>
@@ -85,7 +101,7 @@
               <input id="solde" type="number" class="form-control" formControlName="solde" />
             </div>
 
-            <button type="submit" class="btn btn-success" [disabled]="compteForm.invalid">{{ isEditMode ? 'Update Compte' : 'Add Compte' }}</button>
+            <button type="submit" class="btn btn-success w-100 mt-2" [disabled]="compteForm.invalid">{{ isEditMode ? 'Update Compte' : 'Add Compte' }}</button>
           </form>
         </div>
       </div>
@@ -93,9 +109,9 @@
   </div>
 
   <!-- Popup Modal for Displaying Compte Details -->
-  <div class="modal" [ngClass]="{ 'show': showDisplayComptePopup }" tabindex="-1" aria-hidden="true" style="display: block;" *ngIf="showDisplayComptePopup">
+  <div class="modal d-block fade-in" *ngIf="showDisplayComptePopup">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+      <div class="modal-content shadow">
         <div class="modal-header">
           <h5 class="modal-title">Compte Details</h5>
           <button type="button" class="btn-close" (click)="closeDisplayPopup()" aria-label="Close"></button>
@@ -103,12 +119,12 @@
         <div class="modal-body">
           <p><strong>Code Compte:</strong> {{ compteForm.get('codeCompte')?.value }}</p>
           <p><strong>Date Creation:</strong> {{ compteForm.get('dateCreation')?.value }}</p>
-          <p><strong>Client:</strong> {{ compteForm.get('nomClient')?.value  }}</p>
-          <p><strong>Employee:</strong> {{compteForm.get('nomEmploye')?.value}}</p>
+          <p><strong>Client:</strong> {{ compteForm.get('nomClient')?.value }}</p>
+          <p><strong>Employee:</strong> {{ compteForm.get('nomEmploye')?.value }}</p>
           <p><strong>Type:</strong> {{ compteForm.get('type')?.value === 'CC' ? 'Compte Courant' : 'Compte Epargne' }}</p>
           <p *ngIf="compteForm.get('type')?.value === 'CE'"><strong>Taux:</strong> {{ compteForm.get('taux')?.value }}</p>
           <p *ngIf="compteForm.get('type')?.value === 'CC'"><strong>Decouvert:</strong> {{ compteForm.get('decouvert')?.value }}</p>
-          <p><strong>Solde:</strong> {{ compteForm.get('solde')?.value }}</p>
+          <p><strong>Solde:</strong> {{ compteForm.get('solde')?.value | currency }}</p>
         </div>
       </div>
     </div>

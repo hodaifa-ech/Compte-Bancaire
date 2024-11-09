@@ -1,40 +1,33 @@
-/* Center the navbar links */
-.navbar-nav {
-    display: flex;
-    gap: 1.5rem; /* Adjust spacing between links */
-  }
-  
-  .nav-link {
-    position: relative;
-    font-weight: bold;
-    color: #333;
-    transition: color 0.3s ease;
-  }
-  
-  /* Hover effect: underline */
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #007bff; /* Customize underline color */
-    transition: width 0.3s ease;
-  }
-  
-  .nav-link:hover::after {
-    width: 100%;
-  }
-  
-  /* Active link underline */
-  .active-link::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #007bff;
-  }
-  
+/* Logo styling */
+.navbar-logo {
+  width: 120px; /* Adjust size */
+  height: auto;
+}
+
+/* Hover effect for links */
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease, padding-bottom 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #007bff; /* Bootstrap primary color, adjust as needed */
+  padding-bottom: 10px;
+}
+
+/* Underline effect when hovering */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover::after {
+  background-color: #007bff; /* Change color to match your theme */
+}

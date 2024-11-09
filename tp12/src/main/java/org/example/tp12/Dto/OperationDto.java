@@ -12,6 +12,7 @@ public class OperationDto implements Serializable {
     private double montant;
     private Long compteId;
     private Long employeId;
+    private String type;
     private Long compteSource;
     private String employeName;
     private String clientName;

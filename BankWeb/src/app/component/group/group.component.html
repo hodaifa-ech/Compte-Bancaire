@@ -1,31 +1,39 @@
 <div class="container mt-4">
   <h3>Groups List</h3>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Code Groupe</th>
-        <th>Nom Groupe</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let group of groups">
-        <td>{{ group.codeGroupe }}</td>
-        <td>{{ group.nomGroupe }}</td>
-        <td>
-          <button class="btn btn-warning me-2" (click)="openEditGroupPopup(group)">Update</button>
-          <button class="btn btn-danger" (click)="confirmDeleteGroup(group.codeGroupe)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <button class="btn btn-primary" (click)="toggleAddGroupPopup()">Add Group</button>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle">
+      <thead class="table-header">
+        <tr>
+          <th>Code Groupe</th>
+          <th>Nom Groupe</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of groups  | paginate: { itemsPerPage: 5, currentPage: currentPage }">
+          <td>{{ group.codeGroupe }}</td>
+          <td>{{ group.nomGroupe }}</td>
+          <td class="text-center">
+            <button class="btn btn-outline-warning btn-sm me-2" (click)="openEditGroupPopup(group)">
+              <i class="fas fa-edit"></i> Update
+            </button>
+            <button class="btn btn-outline-danger btn-sm me-2" (click)="confirmDeleteGroup(group.codeGroupe)">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination-container">
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
+  <button class="btn btn-outline-primary mt-3 w-100" (click)="toggleAddGroupPopup()">Add Group</button>
 
-  <!-- Popup Modal for Adding Group -->
-  <div class="modal" tabindex="-1" [ngClass]="{'d-block': showAddGroupPopup}">
-    <div class="modal-dialog">
-      <div class="modal-content">
+  <!-- Add Group Modal -->
+  <div class="modal d-block fade-in" *ngIf="showAddGroupPopup">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow">
         <div class="modal-header">
           <h5 class="modal-title">Add Group</h5>
           <button type="button" class="btn-close" (click)="toggleAddGroupPopup()"></button>
@@ -39,17 +47,17 @@
                 Nom Groupe is required.
               </div>
             </div>
-            <button type="submit" class="btn btn-success" [disabled]="groupForm.invalid">Add Group</button>
+            <button type="submit" class="btn btn-success w-100" [disabled]="groupForm.invalid">Add Group</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Popup Modal for Editing Group -->
-  <div class="modal" tabindex="-1" [ngClass]="{'d-block': showEditGroupPopup}">
-    <div class="modal-dialog">
-      <div class="modal-content">
+  <!-- Edit Group Modal -->
+  <div class="modal d-block fade-in" *ngIf="showEditGroupPopup">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow">
         <div class="modal-header">
           <h5 class="modal-title">Edit Group</h5>
           <button type="button" class="btn-close" (click)="toggleEditGroupPopup()"></button>
@@ -63,7 +71,7 @@
                 Nom Groupe is required.
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="groupForm.invalid">Update Group</button>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="groupForm.invalid">Update Group</button>
           </form>
         </div>
       </div>

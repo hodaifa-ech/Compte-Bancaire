@@ -35,7 +35,11 @@ public class CompteService {
         CompteDto updatedCompte = compteMetier.updateCompte(codeCompte, compteDto);
         return ResponseEntity.ok(updatedCompte);
     }
-
+    //FIND ALL COMPTE FOR CLIENT
+    @GetMapping("/client/{id}")
+    public List<CompteDto> findAllCompteByClient(@PathVariable Long id){
+        return compteMetier.findAllComptesByClient(id);
+    }
     // Endpoint to delete a Compte by its code
     @DeleteMapping("/{codeCompte}")
     public ResponseEntity<Void> deleteCompte(@PathVariable Long codeCompte) {
