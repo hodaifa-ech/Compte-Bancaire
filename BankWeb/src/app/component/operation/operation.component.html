@@ -1,0 +1,121 @@
+<div class="container">
+    <h2>Operations</h2>
+    <ul class="list-group mb-4">
+      <li class="list-group-item" *ngFor="let operation of operations">
+        {{ operation | json }}
+      </li>
+    </ul>
+  
+    <!-- Versement Button & Modal -->
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#versementModal">Versement</button>
+    <div class="modal fade" id="versementModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Versement</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="versementForm" (ngSubmit)="submitVersement()">
+              <div class="mb-3">
+                <label for="client">Client</label>
+                <select class="form-control" formControlName="client">
+                  <option *ngFor="let client of clients" [value]="client.codeClient">{{ client.nomClient }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="employee">Employee</label>
+                <select class="form-control" formControlName="employee">
+                  <option *ngFor="let employee of employees" [value]="employee.codeEmploye">{{ employee.nomEmploye }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="solde">Amount</label>
+                <input type="number" formControlName="solde" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-success" [disabled]="versementForm.invalid">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Retrait Button & Modal -->
+    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#retraitModal">Retrait</button>
+    <div class="modal fade" id="retraitModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Retrait</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="retraitForm" (ngSubmit)="submitRetrait()">
+              <div class="mb-3">
+                <label for="client">Client</label>
+                <select class="form-control" formControlName="client">
+                  <option *ngFor="let client of clients" [value]="client.codeClient">{{ client.nomClient }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="employee">Employee</label>
+                <select class="form-control" formControlName="employee">
+                  <option *ngFor="let employee of employees" [value]="employee.codeEmploye">{{ employee.nomEmploye }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="solde">Amount</label>
+                <input type="number" formControlName="solde" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-success" [disabled]="retraitForm.invalid">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Virement Button & Modal -->
+    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#virementModal">Virement</button>
+    <div class="modal fade" id="virementModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Virement</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="virementForm" (ngSubmit)="submitVirement()">
+              <div class="mb-3">
+                <label for="clientFrom">Client Sending</label>
+                <select class="form-control" formControlName="clientFrom">
+                  <option *ngFor="let client of clients" [value]="client.codeClient" [disabled]="client.codeClient === virementForm.controls['clientTo'].value">
+                    {{ client.nomClient }}
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="clientTo">Client Receiving</label>
+                <select class="form-control" formControlName="clientTo">
+                  <option *ngFor="let client of clients" [value]="client.codeClient" [disabled]="client.codeClient === virementForm.controls['clientFrom'].value">
+                    {{ client.nomClient }}
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="employee">Employee</label>
+                <select class="form-control" formControlName="employee">
+                  <option *ngFor="let employee of employees" [value]="employee.codeEmploye">{{ employee.nomEmploye }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="solde">Amount</label>
+                <input type="number" formControlName="solde" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-success" [disabled]="virementForm.invalid">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

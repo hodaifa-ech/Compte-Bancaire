@@ -43,6 +43,11 @@ public class OperationService {
         RetraitDto result = operationMetier.retrait(retraitDto);
         return ResponseEntity.ok(result);
     }
+    @GetMapping
+    public List<OperationDto> getAllOperations() {
+        return operationMetier.finAllOperation();
+    }
+
     @GetMapping("/{clientId}")
     public List<OperationDto> getOperations(@PathVariable Long clientId) {
         return operationMetier.findOperationsByClientId(clientId);

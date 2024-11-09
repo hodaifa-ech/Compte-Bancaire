@@ -129,13 +129,19 @@ public class OperationMetierImpl implements OperationMetier {
         return operationList.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
+    public List<OperationDto> finAllOperation (){
+        List<Operation> operationList = operationRepository.findAll();
+        return operationList.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
     public OperationDto mapToDto(Operation operation) {
         OperationDto dto = new OperationDto();
         dto.setNumeroOperation(operation.getNumeroOperation());
         dto.setDateOperation(operation.getDateOperation());
         dto.setMontant(operation.getMontant());
         dto.setEmployeId(operation.getEmploye().getCodeEmploye());
-
+        dto.setEmployeName(operation.getEmploye().getNomEmploye());
+        dto.setClientName(operation.getCompte().getClient().getNomClient());
         dto.setCompteId(Long.parseLong(operation.getCompte().getCodeCompte()));
         return dto;
     }

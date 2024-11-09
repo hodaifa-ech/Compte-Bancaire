@@ -4,12 +4,14 @@ import { ClientComponent } from './component/client/client.component';
 import { EmployeComponent } from './component/employe/employe.component';
 import { GroupComponent } from './component/group/group.component';
 import { CompteComponent } from './component/compte/compte.component';
+import { OperationComponent } from './component/operation/operation.component';
 
 const routes: Routes = [
   {path:'client',component: ClientComponent },
   {path:'employe',component:EmployeComponent},
   {path:'group',component:GroupComponent},
-  {path:'compte',component:CompteComponent}
+  {path:'compte',component:CompteComponent},
+  {path:'operation',component:OperationComponent}
 ];
 
 @NgModule({

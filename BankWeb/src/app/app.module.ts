@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EmployeComponent } from './component/employe/employe.component';
 import { GroupComponent } from './component/group/group.component';
 import { CompteComponent } from './component/compte/compte.component';
+import { OperationComponent } from './component/operation/operation.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CompteComponent } from './component/compte/compte.component';
     ClientComponent,
     EmployeComponent,
     GroupComponent,
-    CompteComponent
+    CompteComponent,
+    OperationComponent
   ],
   imports: [
     BrowserModule,
