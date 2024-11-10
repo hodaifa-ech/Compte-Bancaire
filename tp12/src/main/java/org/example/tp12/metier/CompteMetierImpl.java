@@ -97,6 +97,10 @@ public class CompteMetierImpl implements CompteMetier {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
+    public Long getCompteCount(){
+        return compteRepository.count();
+    }
     private CompteDto mapToDTO(Compte compte) {
         CompteDto dto = new CompteDto();
         dto.setCodeCompte(compte.getCodeCompte());

@@ -14,4 +14,5 @@ public interface CompteMetier {
     public CompteDto updateCompte(Long codeCompte, CompteDto compteDTO);
     public void deleteCompte(Long codeCompte);
     public List<CompteDto> findAllComptesByClient(Long clientId);
+    Long getCompteCount();
 }

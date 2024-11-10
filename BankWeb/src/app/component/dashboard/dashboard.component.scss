@@ -1,0 +1,31 @@
+/* Default card style */
+.custom-card {
+    background-color: white; 
+    border: 1px solid #e0e0e0; /* Light border for visibility */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Hover effect for blue blur under the card */
+  .custom-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 255, 0.2); /* Blue blur effect */
+    transform: translateY(-5px); /* Optional: Lift the card a bit on hover */
+  }
+  
+  /* Icon background circle styles */
+  .custom-icon-bg {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+  /* Optional: Add a slight hover effect to the icons for interactivity */
+  .custom-card:hover .custom-icon-bg {
+    background-color: rgba(0, 0, 255, 0.25); /* Blue tint on hover */
+  }
+  

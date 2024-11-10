@@ -24,7 +24,10 @@ public class EmployeRestService {
         System.out.println(employeDTO);
         return employerMetier.addEmploye(employeDTO);
     }
-
+    @GetMapping("/count")
+    public Long getEmployerCount() {
+        return employerMetier.getEmployeCount();
+    }
     @GetMapping
     public List<EmployeDto> getAllEmployes() {
        List <EmployeDto> employes = employerMetier.getAllEmployes();

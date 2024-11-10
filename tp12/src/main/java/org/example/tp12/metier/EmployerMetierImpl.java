@@ -94,6 +94,9 @@ public class EmployerMetierImpl  implements  EmployerMetier{
 
         employeRepository.delete(employe);
     }
+    public Long getEmployeCount(){
+        return employeRepository.count();
+    }
     private EmployeDto mapToDTO(Employe employe) {
         EmployeDto dto = new EmployeDto();
         // Map each Groupe to its ID and set it as groupeIds in the DTO

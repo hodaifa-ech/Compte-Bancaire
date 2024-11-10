@@ -54,6 +54,10 @@ public class ClientMetierImpl implements ClientMetier  {
         }
         return false; // If client not found
     }
+
+    public Long getClientCount(){
+        return clientRepository.count();
+    }
     private ClientDTo mapToDTO(Client client) {
         ClientDTo dto = new ClientDTo();
         dto.setCodeClient(client.getCodeClient());

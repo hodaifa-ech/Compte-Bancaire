@@ -15,4 +15,5 @@ public interface EmployerMetier {
     public EmployeDto findEmploye(Long employeId);
     public void deleteEmploye(Long id);
     public EmployeDto updateEmploye(Long id, EmployeDto employeDTO);
+    Long getEmployeCount();
 }

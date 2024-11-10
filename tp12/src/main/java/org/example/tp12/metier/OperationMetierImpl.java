@@ -124,6 +124,9 @@ public class OperationMetierImpl implements OperationMetier {
         return dto;
     }
 
+    public Long getcountOperation() {
+        return operationRepository.count();
+    }
     public List<OperationDto> findOperationsByClientId(Long clientId) {
         List<Operation> operationList = operationRepository.findOperationsByClientId(clientId);
         return operationList.stream().map(this::mapToDto).collect(Collectors.toList());

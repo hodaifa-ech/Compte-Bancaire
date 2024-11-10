@@ -30,7 +30,10 @@ public class GroupService {
     public ResponseEntity<GroupDto> updateGroup(@PathVariable Long id, @RequestBody GroupDto groupDto) {
         return ResponseEntity.ok(groupMetier.updateGroup(id, groupDto));
     }
-
+    @GetMapping("/count")
+    public Long getGroupCount() {
+        return groupMetier.getGroupCount();
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteGroup(@PathVariable Long id) {
         groupMetier.deleteGroup(id);

@@ -11,4 +11,5 @@ public interface ClientMetier {
     public List<ClientDTo> listClient();
     public ClientDTo updateClient(Long codeClient, ClientDTo clientDTo);
     public boolean deleteClient(Long codeClient);
+    Long getClientCount();
 }

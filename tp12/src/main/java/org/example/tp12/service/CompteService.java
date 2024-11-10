@@ -22,7 +22,10 @@ public class CompteService {
         CompteDto savedCompte = compteMetier.addCompte(compteDto);
         return ResponseEntity.ok(savedCompte);
     }
-
+    @GetMapping("/count")
+    public Long getcountCompte(){
+        return compteMetier.getCompteCount();
+    }
     // Endpoint to list all Comptes
     @GetMapping
     public ResponseEntity<List<CompteDto>> listAllComptes() {

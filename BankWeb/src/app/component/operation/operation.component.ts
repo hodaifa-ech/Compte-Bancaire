@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OperationService } from '../../service/serviceOperation/operation.service';
 import { CompteService } from '../../service/serviceCompte/compte.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-operation',
   templateUrl: './operation.component.html',
@@ -94,28 +94,70 @@ Comptes: any[] = [];
   // Form submit methods
   submitVersement(): void {
     if (this.versementForm.valid) {
-      this.operationService.versement(this.versementForm.value).subscribe(response => {
-        this.loadOperations();
-        this.closeVersementModal();
-      });
+      this.operationService.versement(this.versementForm.value).subscribe(
+        response => {
+          this.loadOperations();
+          this.closeVersementModal();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Versement completed successfully!'
+          });
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.message || 'Failed to complete versement.'
+          });
+        }
+      );
     }
   }
-
+  
   submitRetrait(): void {
     if (this.retraitForm.valid) {
-      this.operationService.retrait(this.retraitForm.value).subscribe(response => {
-        this.loadOperations();
-        this.closeRetraitModal();
-      });
+      this.operationService.retrait(this.retraitForm.value).subscribe(
+        response => {
+          this.loadOperations();
+          this.closeRetraitModal();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Retrait completed successfully!'
+          });
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.message || 'Insufficient balance in the account to complete the retrait.'
+          });
+        }
+      );
     }
   }
-
+  
   submitVirement(): void {
     if (this.virementForm.valid) {
-      this.operationService.versementTo(this.virementForm.value).subscribe(response => {
-        this.loadOperations();
-        this.closeVirementModal();
-      });
+      this.operationService.versementTo(this.virementForm.value).subscribe(
+        response => {
+          this.loadOperations();
+          this.closeVirementModal();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Virement completed successfully!'
+          });
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.message || 'Insufficient balance in the source account to complete the virement.'
+          });
+        }
+      );
     }
   }
 }

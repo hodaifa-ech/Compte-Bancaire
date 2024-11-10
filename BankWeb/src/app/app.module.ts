@@ -14,6 +14,7 @@ import { CompteComponent } from './component/compte/compte.component';
 import { OperationComponent } from './component/operation/operation.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     EmployeComponent,
     GroupComponent,
     CompteComponent,
-    OperationComponent
+    OperationComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

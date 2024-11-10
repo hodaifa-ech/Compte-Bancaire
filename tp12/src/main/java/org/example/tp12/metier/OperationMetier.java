@@ -14,4 +14,5 @@ public interface OperationMetier {
     public RetraitDto retrait(RetraitDto retraitDto);
     public List<OperationDto> findOperationsByClientId(Long clientId);
     public List<OperationDto> finAllOperation ();
+    Long getcountOperation();
 }

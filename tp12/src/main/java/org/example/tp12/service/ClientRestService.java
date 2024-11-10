@@ -45,4 +45,9 @@ public class ClientRestService {
     public List<ClientDTo> listClient() {
         return clientMetier.listClient();
     }
+
+    @GetMapping("/count")
+    public Long getCountClient(){
+        return clientMetier.getClientCount();
+    }
 }

@@ -42,6 +42,9 @@ public class GroupMetierImpl implements GroupMetier {
         return mapToDTO(updatedGroup);
     }
 
+    public Long getGroupCount(){
+        return groupeRepository.count();
+    }
     public void deleteGroup(Long id) {
         Groupe group = groupeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Group not found with id " + id));
